@@ -20,6 +20,6 @@ function GetSubGroups ($AllGroups, $ParentGroup, $level) {
     }
 }
 $groups = GetPropertiesForGroups -groups (Get-AzureRmManagementGroup)
-$tenantRoot = $groups | Where-Object {$_.DisplayName -eq "Tenant Root Group"}
+$tenantRoot = $groups | Where-Object {!$_.ParentName}
 Write-Host "$($tenantRoot.DisplayName)"
 GetSubGroups -AllGroups $groups -ParentGroup $tenantRoot -level "-"
