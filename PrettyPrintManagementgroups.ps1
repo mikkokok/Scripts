@@ -1,4 +1,7 @@
 # Print Azure management groups in treeview
+param (
+    [string]$rootName = "Tenant Root Group"
+)
 function GetGroupProperties ($group) {
     return Get-AzureRmManagementGroup -GroupName $group.Name
 }
@@ -20,6 +23,6 @@ function GetSubGroups ($AllGroups, $ParentGroup, $level) {
     }
 }
 $groups = GetPropertiesForGroups -groups (Get-AzureRmManagementGroup)
-$tenantRoot = $groups | Where-Object {!$_.ParentName}
+$tenantRoot = $groups | Where-Object {$_.DisplayName -eq $rootName}
 Write-Host "$($tenantRoot.DisplayName)"
 GetSubGroups -AllGroups $groups -ParentGroup $tenantRoot -level "-"
