@@ -1,0 +1,20 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "subnets": {
+      "value": {
+        "settings": [
+          {
+            "name": "firstSubnet",
+            "addressPrefix": "10.0.0.0/24"
+          },
+          {
+            "name": "secondSubnet",
+            "addressPrefix": "10.0.1.0/24"
+          }
+        ]
+      }
+    }
+  }
+}
