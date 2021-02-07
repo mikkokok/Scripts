@@ -2,9 +2,17 @@ $azureRMUri = "https://management.azure.com/subscriptions/"
 $providerUri = "/providers/microsoft.insights/logprofiles/default?api-version=2016-03-01"
 
 $subscriptionId = (Get-AzContext).Subscription.Id
-$tenantId = (Get-AzSubscription -SubscriptionId $subscriptionId).TenantId
+
 $currentContext = Get-AzContext
-$accessToken = $currentContext.TokenCache.ReadItems() | Where-Object { $_.TenantId -eq $tenantId } | Sort-Object -Property ExpiresOn -Descending | Select-Object -First 1
+$accessToken = [Microsoft.Azure.Commands.Common.Authentication.AzureSession]::Instance.AuthenticationFactory.Authenticate(
+    $AzContext.'Account',
+    $AzContext.'Environment',
+    $AzContext.'Tenant'.'Id',
+    $null,
+    [Microsoft.Azure.Commands.Common.Authentication.ShowDialog]::Never,
+    $null,
+    'https://management.azure.com/'
+).AccessToken
 
 if (!$accessToken) {
     Write-Host "No accesstoken found. Exiting"
