@@ -1,0 +1,23 @@
+docker image ls				Lists all image
+docker image rm <image>			Removes an image
+docker image pull <image>		Pulls image from a docker registry
+docker container ls -a			Lists all containers	
+docker container run <image>		Runs a container from an image
+docker container run -it <image>		Interactive
+docker container rm <container>		Removes a container
+docker container rm --force <container>	Force removes a container
+docker container stop <container>	Stops a container
+docker container exec <container>	Executes a command inside the container
+docker container exec -it looper bash
+docker logs -f <container>		Logs
+
+docker image prune			:)
+docker container prune			:)
+
+
+docker run -d -it --name looper ubuntu sh -c "while true; do date; sleep 1; done"
+docker run -it hello-docker sh
+docker cp .\additional.txt sad_jepsen:/usr/src/app/
+Get-Content Dockerfile | docker build -
+docker build -f dockerfile
+docker save --output busybox.tar busybox
